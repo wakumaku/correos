@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8'?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="pee_schema" version="1.0">
+  <xs:element name="consultaPEERequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="COD_ENVIO" type="xs:string"/>
+		<xs:element name="TIPO_DOCUMENTO">
+					<xs:simpleType>
+						<xs:restriction base="xs:string">
+							<xs:maxLength value="3"/>
+							<xs:enumeration value="PDF"/>
+							<xs:enumeration value="XML"/>
+						</xs:restriction>
+					</xs:simpleType>
+				</xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultaPEEResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="ID_DOCUMENTO" type="xs:string"/>
+        <xs:element name="COD_ERROR" type="xs:string"/>
+        <xs:element name="DESC_ERROR" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultaPODRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="COD_ENVIO" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="consultaPODResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="CONTENIDO_POD" type="xs:string"/>
+        <xs:element name="TIPO_POD" type="xs:string"/>
+        <xs:element name="COD_ERROR" type="xs:string"/>
+        <xs:element name="DESC_ERROR" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

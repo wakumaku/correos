@@ -1,0 +1,1672 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap"
+	xmlns:impl="http://ejb.mauo.correos.es"
+	xmlns:intf="http://ejb.mauo.correos.es"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:tns="http://ejb.mauo.correos.es"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://ejb.mauo.correos.es">
+	<wsdl:types>
+		<schema xmlns="http://www.w3.org/2001/XMLSchema"
+			xmlns:SOAP_ENC="http://schemas.xmlsoap.org/soap/encoding/"
+			elementFormDefault="qualified"
+			targetNamespace="http://ejb.mauo.correos.es"
+			xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+
+			<xsd:element name="homePaqOficinaConsultaCP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigoPostal">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="5" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="incluirAdyacentes">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="homePaqOficinaRespuestaType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="homePaqOficina" type="tns:homePaqOficinaType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="error"	type="integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="homePaqOficinaRespuesta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element minOccurs="0" maxOccurs="1" name="listaHomePaqOficina" type="tns:homePaqOficinaRespuestaType" />
+						<xsd:element minOccurs="1" maxOccurs="1" name="error" type="integer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<!-- <xsd:complexType name="homePaqOficinaRespuestaType"> <xsd:complexContent> 
+				<xsd:restriction base="SOAP_ENC:Array"> <xsd:attribute ref="SOAP_ENC:arrayType" 
+				wsdl:arrayType="tns:homePaqOficinaType[]" /> </xsd:restriction> </xsd:complexContent> 
+				</xsd:complexType> -->
+
+			<xsd:complexType name="homePaqOficinaType">
+				<sequence>
+
+					<xsd:element name="cod_homepaq">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="9" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+
+					<xsd:element name="tipoUnidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="codUnidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="desUnidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="indAmbitoCodigo">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="direccion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cp">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="codLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="13" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="descLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="80" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="codProvincia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="codHorario">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="desHorario">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="200" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorXETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorYETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorXWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorYWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="latitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="longitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="latitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="longitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<minInclusive value="-9999999.99999999999" />
+								<maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="telefonoOficina">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="acceso">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="30" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+				</sequence>
+			</xsd:complexType>
+
+			<xsd:element name="localizadorConsulta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigoPostal">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="localizadorRespuesta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="arrayOficina" type="tns:arrayOf__oficina" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="error"
+							type="integer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="arrayOf__oficina">
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP_ENC:Array">
+						<xsd:attribute ref="SOAP_ENC:arrayType"
+							wsdl:arrayType="tns:__oficina[]" />
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+
+			<xsd:complexType name="__oficina">
+				<xsd:sequence>
+					<xsd:element name="unidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="nombre">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="ind_ambitoCodigo">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="direccion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="cp">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="codLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="13" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="descLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="80" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="telefono">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioLV">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioS">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioF">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="homePaqConsultaCP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigoPostal">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="homePaqConsultaCP1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="codigoPostal">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="homePaqConsultaTAP">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="cod_homepaq">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="9" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="homePaqConsultaTAP1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="cod_homepaq">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="9" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="homePaqConsultaProvincia">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="todas">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="1" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="provinciaRespuesta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="listaProvincia" type="tns:provinciaRespuestaType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="provinciaRespuestaType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1" name="provincia" type="tns:provinciaType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="error"	type="integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="provinciaType">
+				<xsd:sequence>
+					<xsd:element name="cod_provincia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="nom_provincia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="homePaqType">
+				<xsd:sequence>
+					<xsd:element name="cod_homepaq">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="9" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="id_fabricante">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="25" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="nom_fabricante">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="modelo">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="25" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="fec_instalacion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string" />
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="fec_alta">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string" />
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="tipo_homepaq">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_estado">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="99" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="des_via">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="direccion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="numero">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="portal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="bloque">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="escalera">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_localidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="13" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_provincia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_postal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_modulos">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi__muy_pequeno">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_pequeno">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_mediano">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_grande">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_egrande">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<!-- <xsd:element name="ind_ambito"> <xsd:simpleType> <xsd:restriction 
+						base="xsd:string"> <xsd:maxLength value="2" /> </xsd:restriction> </xsd:simpleType> 
+						</xsd:element> -->
+
+					<xsd:element name="des_canal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="det_canal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="observaciones">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="ind_admision">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="ind_horario">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorXETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="homePaqType1">
+				<xsd:sequence>
+					<xsd:element name="cod_homepaq">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="9" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="id_fabricante">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="25" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="nom_fabricante">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="modelo">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="25" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="fec_instalacion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string" />
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="fec_alta">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string" />
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="tipo_homepaq">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_estado">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="99" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="des_via">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="direccion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="numero">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="portal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="bloque">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="escalera">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="5" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_localidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="13" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="desc_localidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="80" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_provincia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="2" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="cod_postal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_modulos">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi__muy_pequeno">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_pequeno">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_mediano">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_grande">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="num_ubi_egrande">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:integer">
+								<xsd:minInclusive value="0" />
+								<xsd:maxInclusive value="999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<!-- <xsd:element name="ind_ambito"> <xsd:simpleType> <xsd:restriction 
+						base="xsd:string"> <xsd:maxLength value="2" /> </xsd:restriction> </xsd:simpleType> 
+						</xsd:element> -->
+
+					<xsd:element name="des_canal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="det_canal">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="observaciones">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="ind_admision">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="ind_horario">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="coorXETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+					<xsd:element name="alias">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="35" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="homePaqRespuestaType">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1"
+						name="homePaq" type="tns:homePaqType" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="error"
+						type="integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="homePaqRespuestaType1">
+				<xsd:sequence>
+					<xsd:element maxOccurs="unbounded" minOccurs="1"
+						name="homePaq" type="tns:homePaqType1" />
+					<xsd:element maxOccurs="1" minOccurs="1" name="error"
+						type="integer" />
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:element name="homePaqRespuesta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1"
+							name="listaHomePaq" type="tns:homePaqRespuestaType" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="homePaqRespuesta1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1"
+							name="listaHomePaq" type="tns:homePaqRespuestaType1" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="localizadorCoordenadasConsulta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="nLatitud" minOccurs="1"
+							maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									Coordenada X en el sistema WGS84
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="nLongitud" minOccurs="1"
+							maxOccurs="1">
+							<xsd:annotation>
+								<xsd:documentation>
+									Coordenada Y en el sistema WGS84
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:maxLength value="20" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="sistemaReferencia" minOccurs="0"
+							maxOccurs="1" nillable="true">
+							<xsd:annotation>
+								<xsd:documentation>
+									Sistema de referencia por defecto: WGS84
+									•
+									25830: ETRS_1989_UTM_Zone_30N (COORX - COORY_ETRS89)
+									• 4258:
+									GCS_ETRS_1989 (LATITUD - LONGITUD_ETRS89).
+									• 3857:
+									WGS_1984_Web_Mercator_Auxiliary_Sphere (COORX -
+									COORY_WGS84)
+									•
+									4326: GCS_WGS_1984 (LATITUD - LONGITUD_WGS84).
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:pattern value="[25830|4258|3857|4326]" />
+									<xsd:maxLength value="5" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="nMaxCentrosCorreos" minOccurs="0"
+							maxOccurs="1" nillable="true">
+							<xsd:annotation>
+								<xsd:documentation>
+									Número máximo de oficinas devueltas en la
+									consulta.
+									Valor por defecto y máximo: 10 oficinas.
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:pattern value="[0-9]|10" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="nMaxDistanciaKm" minOccurs="0"
+							maxOccurs="1" nillable="true">
+							<xsd:annotation>
+								<xsd:documentation>
+									Distancia máxima de búsqueda desde el punto
+									de origen. Se mide en
+									kilómetros.
+									Valor por defecto: 20
+									kilómetros.
+								</xsd:documentation>
+							</xsd:annotation>
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:string">
+									<xsd:pattern value="[1-9]?[0-9]|100" />
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:element name="localizadorCoordenadasRespuesta">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="0"
+							name="arrayOficinaCoordenada"
+							type="tns:arrayOf__oficinaCoordenada" />
+						<xsd:element maxOccurs="1" minOccurs="1" name="error"
+							type="integer" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+
+			<xsd:complexType name="__oficinaCoordenada">
+				<xsd:sequence>
+					<xsd:element name="unidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="nombre">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="ind_ambitoCodigo">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="1" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="direccion">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="150" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="cp">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="10" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="codLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="13" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="descLocalidad">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="80" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorXWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="coorYWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="telefono">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="20" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioLV">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioS">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="horarioF">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:string">
+								<xsd:maxLength value="60" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudETRS89">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="latitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="longitudWGS84">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:float">
+								<xsd:minInclusive value="-9999999.99999999999" />
+								<xsd:maxInclusive value="9999999.99999999999" />
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+					<xsd:element name="distancia">
+						<xsd:simpleType>
+							<xsd:restriction base="xsd:double">
+							</xsd:restriction>
+						</xsd:simpleType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:complexType>
+
+			<xsd:complexType name="arrayOf__oficinaCoordenada">
+				<xsd:complexContent>
+					<xsd:restriction base="SOAP_ENC:Array">
+						<xsd:attribute ref="SOAP_ENC:arrayType"
+							wsdl:arrayType="tns:__oficinaCoordenada[]" />
+					</xsd:restriction>
+				</xsd:complexContent>
+			</xsd:complexType>
+
+
+		</schema>
+	</wsdl:types>
+
+	<wsdl:message name="homePaqOficinaCPRequest">
+		<wsdl:part element="intf:homePaqOficinaConsultaCP"
+			name="homePaqOficinaConsultaCP" />
+	</wsdl:message>
+	<wsdl:message name="homePaqOficinaCPResponse">
+		<wsdl:part element="intf:homePaqOficinaRespuesta"
+			name="homePaqOficinaRespuesta" />
+	</wsdl:message>
+	<wsdl:message name="localizadorRequest">
+		<wsdl:part element="intf:localizadorConsulta"
+			name="localizadorConsulta" />
+	</wsdl:message>
+	<wsdl:message name="homePaqCPRequest">
+		<wsdl:part element="intf:homePaqConsultaCP"
+			name="homePaqConsultaCP" />
+	</wsdl:message>
+	<wsdl:message name="homePaqCPRequest1">
+		<wsdl:part element="intf:homePaqConsultaCP1"
+			name="homePaqConsultaCP1" />
+	</wsdl:message>
+	<wsdl:message name="homePaqTAPRequest">
+		<wsdl:part element="intf:homePaqConsultaTAP"
+			name="homePaqConsultaTAP" />
+	</wsdl:message>
+	<wsdl:message name="homePaqTAPRequest1">
+		<wsdl:part element="intf:homePaqConsultaTAP1"
+			name="homePaqConsultaTAP1" />
+	</wsdl:message>
+	<wsdl:message name="homePaqProvinciaRequest">
+		<wsdl:part element="intf:homePaqConsultaProvincia"
+			name="homePaqConsultaProvincia" />
+	</wsdl:message>
+	<wsdl:message name="localizadorResponse">
+		<wsdl:part element="intf:localizadorRespuesta"
+			name="localizadorRespuesta" />
+	</wsdl:message>
+	<wsdl:message name="homePaqCPResponse">
+		<wsdl:part element="intf:homePaqRespuesta"
+			name="homePaqRespuesta" />
+	</wsdl:message>
+	<wsdl:message name="homePaqCPResponse1">
+		<wsdl:part element="intf:homePaqRespuesta1"
+			name="homePaqRespuesta1" />
+	</wsdl:message>
+	<wsdl:message name="homePaqTAPResponse">
+		<wsdl:part element="intf:homePaqRespuesta"
+			name="homePaqRespuesta" />
+	</wsdl:message>
+	<wsdl:message name="homePaqTAPResponse1">
+		<wsdl:part element="intf:homePaqRespuesta1"
+			name="homePaqRespuesta1" />
+	</wsdl:message>
+	<wsdl:message name="homePaqProvinciaResponse">
+		<wsdl:part element="intf:provinciaRespuesta"
+			name="provinciaRespuesta" />
+	</wsdl:message>
+	<wsdl:message name="localizadorCoordenadasRequest">
+		<wsdl:part element="intf:localizadorCoordenadasConsulta"
+			name="localizadorCoordenadasConsulta" />
+	</wsdl:message>
+	<wsdl:message name="localizadorCoordenadasResponse">
+		<wsdl:part name="localizadorCoordenadasRespuesta"
+			element="intf:localizadorCoordenadasRespuesta">
+			</wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name="ServicioLocalizador">
+
+		<wsdl:operation name="consultaOficinasCityPaqsPorCP">
+			<wsdl:input message="impl:homePaqOficinaCPRequest"
+				name="homePaqOficinaCPRequest" />
+			<wsdl:output message="impl:homePaqOficinaCPResponse"
+				name="homePaqOficinaCPResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="procesaLocalizador">
+			<wsdl:input message="impl:localizadorRequest"
+				name="localizadorRequest" />
+			<wsdl:output message="impl:localizadorResponse"
+				name="localizadorResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaPorCP">
+			<wsdl:input message="impl:homePaqCPRequest"
+				name="homePaqCPRequest" />
+			<wsdl:output message="impl:homePaqCPResponse"
+				name="homePaqCPResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaPorCP1">
+			<wsdl:input message="impl:homePaqCPRequest1"
+				name="homePaqCPRequest1" />
+			<wsdl:output message="impl:homePaqCPResponse1"
+				name="homePaqCPResponse1" />
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaPorTAP">
+			<wsdl:input message="impl:homePaqTAPRequest"
+				name="homePaqTAPRequest" />
+			<wsdl:output message="impl:homePaqTAPResponse"
+				name="homePaqTAPResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaPorTAP1">
+			<wsdl:input message="impl:homePaqTAPRequest1"
+				name="homePaqTAPRequest1" />
+			<wsdl:output message="impl:homePaqTAPResponse1"
+				name="homePaqTAPResponse1" />
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaProvincias">
+			<wsdl:input message="impl:homePaqProvinciaRequest"
+				name="homePaqProvinciaRequest" />
+			<wsdl:output message="impl:homePaqProvinciaResponse"
+				name="homePaqProvinciaResponse" />
+		</wsdl:operation>
+
+		<wsdl:operation name="localizadorCoordenadas">
+			<wsdl:input message="impl:localizadorCoordenadasRequest"
+				name="localizadorCoordenadasRequest" />
+			<wsdl:output
+				message="impl:localizadorCoordenadasResponse"
+				name="localizadorCoordenadasResponse" />
+		</wsdl:operation>
+	</wsdl:portType>
+	
+	<wsdl:binding name="WSLocalizador" type="intf:ServicioLocalizador">
+		<wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http" />
+
+		<wsdl:operation name="consultaOficinasCityPaqsPorCP">
+			<wsdlsoap:operation soapAction="consultaOficinasCityPaqsPorCP" />
+			<wsdl:input name="homePaqOficinaCPRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqOficinaCPResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="procesaLocalizador">
+			<wsdlsoap:operation
+				soapAction="procesaLocalizador" />
+			<wsdl:input name="localizadorRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="localizadorResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="homePaqConsultaPorCP">
+			<wsdlsoap:operation
+				soapAction="homePaqConsultaPorCP" />
+			<wsdl:input name="homePaqCPRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqCPResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="homePaqConsultaPorCP1">
+			<wsdlsoap:operation
+				soapAction="homePaqConsultaPorCP1" />
+			<wsdl:input name="homePaqCPRequest1">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqCPResponse1">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="homePaqConsultaPorTAP">
+			<wsdlsoap:operation
+				soapAction="homePaqConsultaPorTAP" />
+			<wsdl:input name="homePaqTAPRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqTAPResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaPorTAP1">
+			<wsdlsoap:operation
+				soapAction="homePaqConsultaPorTAP1" />
+			<wsdl:input name="homePaqTAPRequest1">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqTAPResponse1">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="homePaqConsultaProvincias">
+			<wsdlsoap:operation
+				soapAction="homePaqConsultaProvincias" />
+			<wsdl:input name="homePaqProvinciaRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="homePaqProvinciaResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="localizadorCoordenadas">
+			<wsdlsoap:operation soapAction="localizadorCoordenadas" />
+			<wsdl:input name="localizadorCoordenadasRequest">
+				<wsdlsoap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output name="localizadorCoordenadasResponse">
+				<wsdlsoap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		
+	</wsdl:binding>
+	<wsdl:service name="LocalizadorService">
+		<wsdl:port binding="intf:WSLocalizador" name="Localizador">
+			<wsdlsoap:address
+				location="http://maestrou.correos.es/MaestroAdaptadorRouter/services/Localizador"/>
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8'?><definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="pee_schema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:pee="pee" xmlns="http://schemas.xmlsoap.org/wsdl/" name="PruebaEntregaElectronicaService" targetNamespace="pee">
+  <types>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="pee_schema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:pee="pee" xmlns="http://schemas.xmlsoap.org/wsdl/">
+      
+  <xsd:import namespace="pee_schema" schemaLocation="PruebaEntregaElectronicaService_schema.xsd"/>
+    
+</xsd:schema>
+  </types>
+  <message name="consultaPODRequest">
+    <part element="tns:consultaPODRequest" name="parameters">
+    </part>
+  </message>
+  <message name="consultaPEEResponse">
+    <part element="tns:consultaPEEResponse" name="parameters">
+    </part>
+  </message>
+  <message name="consultaPODResponse">
+    <part element="tns:consultaPODResponse" name="parameters">
+    </part>
+  </message>
+  <message name="consultaPEERequest">
+    <part element="tns:consultaPEERequest" name="parameters">
+    </part>
+  </message>
+  <portType name="PeeServicePort">
+    <operation name="consultaPEE">
+      <input message="pee:consultaPEERequest">
+    </input>
+      <output message="pee:consultaPEEResponse">
+    </output>
+    </operation>
+    <operation name="consultaPOD">
+      <input message="pee:consultaPODRequest">
+    </input>
+      <output message="pee:consultaPODResponse">
+    </output>
+    </operation>
+  </portType>
+  <binding name="PruebaEntregaElectronicaServicePortBinding" type="pee:PeeServicePort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="consultaPEE">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+    <operation name="consultaPOD">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="PruebaEntregaElectronicaService">
+    <port binding="pee:PruebaEntregaElectronicaServicePortBinding" name="PruebaEntregaElectronicaServicePort">
+      <soap:address location="https://pee.correos.es/peepdf"/>
+    </port>
+  </service>
+</definitions>
